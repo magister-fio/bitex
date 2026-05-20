@@ -38,6 +38,9 @@ export const getOptionSetByCatID = async (categoryID: string) => {
           },
         },
       },
+      include: {
+        options: { select: { name: true, value: true } },
+      },
     });
 
     if (!result) return { error: "Not Found!" };
@@ -102,7 +105,7 @@ export const addSingleOption = async (data: TSingleOption) => {
       },
       data: {
         options: {
-          push: {
+          create: {
             name: data.name,
             value: data.value,
           },
@@ -127,10 +130,8 @@ export const deleteSingleOption = async (data: TSingleOption) => {
       data: {
         options: {
           deleteMany: {
-            where: {
-              name: data.name,
-              value: data.name,
-            },
+            name: data.name,
+            value: data.value,
           },
         },
       },

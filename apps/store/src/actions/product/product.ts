@@ -25,7 +25,7 @@ const ValidateAddProduct = z.object({
     z.object({
       specGroupID: z.string().min(6),
       specValues: z.array(z.string()),
-    })
+    }),
   ),
 });
 
@@ -56,7 +56,7 @@ export const addProduct = async (data: TAddProductFormValues) => {
             price: price,
             salePrice: salePrice,
             images: [...data.images],
-            specs: data.specifications,
+            specs: { create: data.specifications },
           },
         },
       },
