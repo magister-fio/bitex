@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductSpec, SpecGroup } from "@prisma/client";
+import { SpecGroup } from "@prisma/client";
 import { useEffect, useState } from "react";
 
 import { getAllBrands } from "@/actions/brands/brands";
@@ -11,7 +11,7 @@ import DropDownList from "@/shared/components/UI/dropDown";
 import Input from "@/shared/components/UI/input";
 import { TBrand } from "@/shared/types";
 import { TGroupJSON } from "@/shared/types/categories";
-import { TAddProductFormValues } from "@/shared/types/product";
+import { TAddProductFormValues, TProductSpecInput } from "@/shared/types/product";
 import { TDropDown } from "@/shared/types/uiElements";
 import { cn } from "@/shared/utils/styling";
 
@@ -115,7 +115,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
   const getSpecGroup = async (categoryID: string) => {
     const response = await getCategorySpecs(categoryID);
     if (response.res) {
-      const specArray: ProductSpec[] = [];
+      const specArray: TProductSpecInput[] = [];
       response.res.forEach((item) => {
         specArray.push({
           specGroupID: item.id,
