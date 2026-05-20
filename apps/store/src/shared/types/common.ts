@@ -1,4 +1,4 @@
-import { NameValue, OptionSetType, PageType } from "@prisma/client";
+import { OptionSetType, PageType } from "@prisma/client";
 
 export type TProductCard = {
   name: string;
@@ -49,7 +49,7 @@ export type TCategory = {
 export type TOptionSet = {
   id: string;
   name: string;
-  options: NameValue[];
+  options: { name: string; value: string }[];
   type: OptionSetType;
 };
 
