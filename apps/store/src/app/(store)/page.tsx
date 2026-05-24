@@ -12,6 +12,8 @@ import {
 } from "@/domains/store/homePage/components";
 import { threeSaleCards, twoSaleCards } from "@/domains/store/homePage/constants";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "BITEX - Homepage",
 };
