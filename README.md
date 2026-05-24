@@ -1,12 +1,12 @@
 # BITEX E-Commerce
 
-## Full Stack E-Commerce Website (+ Dashboard) with Next.js 16: React, Typescript, Tailwindcss, Prisma, MongoDB, NextAuth, Redux
+## Full Stack E-Commerce Website (+ Dashboard) with Next.js 16: React, Typescript, Tailwindcss, Prisma, PostgreSQL, NextAuth, Redux
 
 ![Fullstack E-Commerce Website](https://res.cloudinary.com/drokemaoa/image/upload/v1709638892/bitexPoster.png)
 
 ## Overview
 
-Bitex is a full-stack E-Commerce project developed with Next.js 16, featuring a range of technologies including React, Typescript, Tailwindcss, Prisma, MongoDB, NextAuth, and Redux.
+Bitex is a full-stack E-Commerce project developed with Next.js 16, featuring a range of technologies including React, Typescript, Tailwindcss, Prisma, PostgreSQL, NextAuth, and Redux.
 
 ⚠️ `Note:` This project is a personal endeavor created for portfolio purposes and is not associated with any real business or project.
 
@@ -84,8 +84,8 @@ git checkout legacy/mongo-monolith
 
 #### ⚙️ Backend
 
-- Interaction with MongoDB database using Prisma ORM.
-- Database integration using MongoDB hosted on MongoDB Atlas.
+- Interaction with PostgreSQL database using Prisma ORM.
+- Relational schema with Prisma migrations (see `apps/store/prisma/migrations/`).
 - Server-side form data validation using ZOD.
 
 ## 🚀 Getting Started
@@ -108,16 +108,24 @@ pnpm install
 
 Create `apps/store/.env` with:
 
-```js
-DATABASE_URL=
+```shell
+DATABASE_URL=        # PostgreSQL connection string, e.g. postgresql://user:pass@host:5432/bitex
 NEXTAUTH_SECRET=
-CLOUDINARY_URL= //Hosting address for products images
+CLOUDINARY_URL=      # Hosting address for product images
 ```
 
 #### ⬆️ Setup Prisma
 
+Apply the committed Postgres migrations:
+
 ```shell
-pnpm --filter bitex-store exec prisma db push
+pnpm --filter bitex-store exec prisma migrate deploy
+```
+
+For local development against a fresh database, you can use:
+
+```shell
+pnpm --filter bitex-store exec prisma migrate dev
 ```
 
 #### 🚀 Start the app
