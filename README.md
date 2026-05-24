@@ -16,11 +16,23 @@ Bitex is a full-stack E-Commerce project developed with Next.js 16, featuring a 
 
 This repository is now structured as a **Turborepo monorepo** managed with `pnpm` workspaces. The Next.js storefront lives in `apps/store`, and shared code is published under `packages/*`.
 
-The previous single-package, MongoDB-based codebase is preserved on the `legacy/mongo-monolith` branch:
+---
 
-```shell
-git checkout legacy/mongo-monolith
-```
+## 🗄️ Looking for the original MongoDB version?
+
+> ### 🧭 `main` is now **Turborepo + PostgreSQL**
+>
+> The original **single-package, MongoDB** codebase has been **preserved unchanged** on a dedicated branch:
+>
+> ### 👉 Branch: [`legacy/mongo-monolith`](https://github.com/HosseinNamvar/bitex/tree/legacy/mongo-monolith)
+>
+> Check it out locally with:
+>
+> ```shell
+> git checkout legacy/mongo-monolith
+> ```
+>
+> Use this branch if you want to see the project as it was **before** the monorepo restructure and the Postgres migration. It is kept for historical / portfolio reference and is **not** receiving new updates.
 
 ---
 
