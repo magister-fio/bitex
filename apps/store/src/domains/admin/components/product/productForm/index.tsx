@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductSpec, SpecGroup } from "@prisma/client";
+import { SpecGroup } from "@prisma/client";
 import { useEffect, useState } from "react";
 
 import { getAllBrands } from "@/actions/brands/brands";
@@ -11,7 +11,7 @@ import DropDownList from "@/shared/components/UI/dropDown";
 import Input from "@/shared/components/UI/input";
 import { TBrand } from "@/shared/types";
 import { TGroupJSON } from "@/shared/types/categories";
-import { TAddProductFormValues } from "@/shared/types/product";
+import { TAddProductFormValues, TProductSpecInput } from "@/shared/types/product";
 import { TDropDown } from "@/shared/types/uiElements";
 import { cn } from "@/shared/utils/styling";
 
@@ -115,7 +115,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
   const getSpecGroup = async (categoryID: string) => {
     const response = await getCategorySpecs(categoryID);
     if (response.res) {
-      const specArray: ProductSpec[] = [];
+      const specArray: TProductSpecInput[] = [];
       response.res.forEach((item) => {
         specArray.push({
           specGroupID: item.id,
@@ -144,7 +144,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
           <span>Name:</span>
           <Input
             type="text"
-            className="w-[200px]"
+            className="w-50"
             value={props.name}
             placeholder="Name..."
             onChange={(e) =>
@@ -159,7 +159,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
           <span>Short Descriptions:</span>
           <Input
             type="text"
-            className="w-[200px]"
+            className="w-50"
             value={props.desc}
             onChange={(e) =>
               onChange({
@@ -194,7 +194,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
           <span>Price:</span>
           <Input
             type="number"
-            className="w-[200px]"
+            className="w-50"
             value={props.price}
             onChange={(e) =>
               onChange({
@@ -209,7 +209,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
           <span>Sale Price:</span>
           <Input
             type="number"
-            className="w-[200px]"
+            className="w-50"
             value={props.salePrice}
             onChange={(e) =>
               onChange({
@@ -228,7 +228,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
                 "select-none border rounded-sm px-3 py-1 ml-1 transition-colors duration-300",
                 props.isAvailable
                   ? "text-gray-100 bg-green-500 border-green-500"
-                  : "cursor-pointer hover:bg-gray-100 border border-gray-200"
+                  : "cursor-pointer hover:bg-gray-100 border border-gray-200",
               )}
               onClick={() => onChange({ ...props, isAvailable: true })}
             >
@@ -239,7 +239,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
                 "select-none border rounded-sm px-3 py-1 ml-1 transition-colors duration-300",
                 !props.isAvailable
                   ? "text-gray-100 bg-red-500 hover:bg-red-500 border-red-500"
-                  : "cursor-pointer hover:bg-gray-100 border border-gray-200"
+                  : "cursor-pointer hover:bg-gray-100 border border-gray-200",
               )}
               onClick={() => onChange({ ...props, isAvailable: false })}
             >
@@ -258,7 +258,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
         </div>
         <div className="flex items-center justify-between">
           <span>Images:</span>
-          <div className="flex flex-col gap-2 mr-6 w-[200px] justify-between">
+          <div className="flex flex-col gap-2 mr-6 w-50 justify-between">
             {props.images.map((img, index) => (
               <Input
                 key={index}
@@ -300,7 +300,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
       </div>
       <div className="mt-5 border-t border-gray-200 w-full h-auto py-4 flex flex-col">
         <span className="text-base mb-4">Specifications:</span>
-        <div className="flex-grow flex flex-col items-start gap-4 mb-6">
+        <div className="grow flex flex-col items-start gap-4 mb-6">
           {categorySpecs.length ? (
             <>
               {categorySpecs.map((specGroup, groupIndex) => (
@@ -315,7 +315,7 @@ const ProductForm = ({ formValues: props, onChange }: TProps) => {
                         <span>{spec}</span>
                         <Input
                           type="text"
-                          className="w-[200px]"
+                          className="w-50"
                           value={props.specifications[groupIndex]?.specValues[specIndex]}
                           onChange={(e) => {
                             props.specifications[groupIndex].specValues[specIndex] = e.currentTarget.value;
