@@ -51,7 +51,7 @@ const StoreNavBar = () => {
     <nav
       className={cn(
         "flex flex-col bg-white transition-all pt-5 duration-700 fixed w-full z-10",
-        hideNavbar ? "top-[-180px]" : "top-0"
+        hideNavbar ? "-top-45" : "top-0",
       )}
     >
       <section className="w-full">
@@ -81,7 +81,7 @@ const StoreNavBar = () => {
         </div>
       </section>
       <section className="w-full border-b-gray-400 mt-5 border-t-gray-300 border-b border-t">
-        <div className="storeContainer h-[50px] flex justify-between">
+        <div className="storeContainer h-12.5 flex justify-between">
           <div className="flex items-center">
             <NavBarCategory isNavbarVisible={!hideNavbar} />
             <hr className="h-4 border-l border-gray-300 mx-4 hidden sm:block" />
@@ -107,7 +107,7 @@ const StoreNavBar = () => {
             <li className="gap-2">
               <Link
                 href={""}
-                className="text-sm bg-[url('/icons/discountIcon.svg')] bg-[0px_10px] bg-no-repeat text-red-900 flex gap-1 md:visible hover:bg-gray-100 py-2 pl-5 pr-4 rounded-lg transition-all duration-150"
+                className="text-sm bg-[url('/icons/discountIcon.svg')] bg-position-[0px_10px] bg-no-repeat text-red-900 flex gap-1 md:visible hover:bg-gray-100 py-2 pl-5 pr-4 rounded-lg transition-all duration-150"
               >
                 Top Deals
               </Link>
