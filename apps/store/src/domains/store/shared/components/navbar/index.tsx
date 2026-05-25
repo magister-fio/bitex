@@ -7,21 +7,11 @@ import { cn } from "@/shared/utils/styling";
 
 import AddVisit from "../addVisit";
 
+import { NAVBAR_ITEMS } from "./constants";
 import NavBarCategory from "./navCategory";
 import NavBarFavorite from "./navFavorite";
 import NavBarProfile from "./navProfile";
 import NavBarShopping from "./navShopping";
-
-const NAVBAR_ITEMS = [
-  { name: "Computer", link: "/list/pc-laptops/computer" },
-  { name: "Laptop", link: "/list/pc-laptops/laptops" },
-  { name: "Mobile", link: "/list/smartphones" },
-  { name: "TV", link: "/list/tvs" },
-  { name: "Gaming", link: "/list/video-games" },
-  { name: "Camera", link: "/list/photography/cameras" },
-  { name: "Tablet", link: "/list/tablets" },
-  { name: "Watch", link: "/list/watches" },
-];
 
 const StoreNavBar = () => {
   const [hideNavbar, setHideNavbar] = useState(false);
