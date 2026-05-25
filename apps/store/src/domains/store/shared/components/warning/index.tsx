@@ -13,7 +13,7 @@ const Warning = () => {
             href={"https://www.linkedin.com/in/hossein-namvar/"}
             title="My LinkedIn Profile"
             target="_blank"
-            className="bg-white flex items-center gap-2 px-2 py-1 rounded-[4px] text-blue-500 transition-colors duration-300"
+            className="bg-white flex items-center gap-2 px-2 py-1 rounded-sm text-blue-500 transition-colors duration-300"
           >
             <LinkedinIcon width={20} strokeWidth={0} className="fill-blue-400" />
             LinkedIn
@@ -21,7 +21,7 @@ const Warning = () => {
           <Link
             href={"mailto:hossein.namvar@gmail.com"}
             title="Send Me an Email!"
-            className="bg-white flex items-center gap-2 px-2 py-1 rounded-[4px] text-blue-500 transition-colors duration-300"
+            className="bg-white flex items-center gap-2 px-2 py-1 rounded-sm text-blue-500 transition-colors duration-300"
           >
             Email
           </Link>
