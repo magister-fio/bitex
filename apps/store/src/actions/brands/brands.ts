@@ -2,6 +2,7 @@
 import { z } from "zod";
 
 import { db } from "@/shared/lib/db";
+import { requireAdmin } from "@/shared/lib/requireAuth";
 import { TBrand } from "@/shared/types";
 
 const ValidateUpdateBrand = z.object({
@@ -10,6 +11,9 @@ const ValidateUpdateBrand = z.object({
 });
 
 export const addBrand = async (brandName: string) => {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   if (!brandName || brandName === "") return { error: "Invalid Data!" };
 
   try {
@@ -37,6 +41,9 @@ export const getAllBrands = async () => {
 };
 
 export const deleteBrand = async (brandID: string) => {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   if (!brandID || brandID === "") return { error: "Invalid Data!" };
   try {
     const result = await db.brand.delete({
@@ -53,6 +60,9 @@ export const deleteBrand = async (brandID: string) => {
 };
 
 export const updateBrand = async (data: TBrand) => {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   if (!ValidateUpdateBrand.safeParse(data).success) return { error: "Invalid Data!" };
 
   try {
