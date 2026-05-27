@@ -3,6 +3,7 @@ import { ProductSpec } from "@prisma/client";
 import { z } from "zod";
 
 import { db } from "@/shared/lib/db";
+import { isAdmin } from "@/shared/lib/requireAuth";
 import {
   TAddProductFormValues,
   TCartListItemDB,
@@ -35,6 +36,9 @@ const convertStringToFloat = (str: string) => {
 };
 
 export const addProduct = async (data: TAddProductFormValues) => {
+  const admin = await isAdmin();
+  if (!admin) return { error: "Unauthorized" };
+
   if (!ValidateAddProduct.safeParse(data).success) return { error: "Invalid Data!" };
 
   try {
@@ -164,6 +168,9 @@ export const getCartProducts = async (productIDs: string[]) => {
 };
 
 export const deleteProduct = async (productID: string) => {
+  const admin = await isAdmin();
+  if (!admin) return { error: "Unauthorized" };
+
   if (!productID || productID === "") return { error: "Invalid Data!" };
   try {
     const result = await db.product.delete({

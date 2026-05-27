@@ -2,6 +2,7 @@
 import { z } from "zod";
 
 import { db } from "@/shared/lib/db";
+import { isAdmin } from "@/shared/lib/requireAuth";
 import { TCategory, TGroupJSON } from "@/shared/types/categories";
 
 //eslint-disable-next-line
@@ -89,6 +90,9 @@ export const getAllCategoriesJSON = async () => {
 };
 
 export const addCategory = async (data: TAddCategory) => {
+  const admin = await isAdmin();
+  if (!admin) return { error: "Unauthorized" };
+
   if (!AddCategory.safeParse(data).success) return { error: "Invalid Data!" };
 
   try {
@@ -109,6 +113,9 @@ export const addCategory = async (data: TAddCategory) => {
 };
 
 export const updateCategory = async (data: TUpdateCategory) => {
+  const admin = await isAdmin();
+  if (!admin) return { error: "Unauthorized" };
+
   if (!UpdateCategory.safeParse(data).success) return { error: "Data is no valid" };
 
   const { id, iconSize, ...values } = data;
@@ -133,6 +140,9 @@ export const updateCategory = async (data: TUpdateCategory) => {
 };
 
 export const deleteCategory = async (id: string) => {
+  const admin = await isAdmin();
+  if (!admin) return { error: "Unauthorized" };
+
   if (!id) return { error: "Can't delete it!" };
 
   try {
