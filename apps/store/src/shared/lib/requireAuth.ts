@@ -2,8 +2,7 @@ import { getServerSession } from "next-auth";
 
 import { authOptions } from "./authOptions";
 
-export const requireAdmin = async (): Promise<{ error: string } | null> => {
+export const isAdmin = async (): Promise<boolean> => {
   const session = await getServerSession(authOptions);
-  if (!session) return { error: "Unauthorized" };
-  return null;
+  return !!session;
 };

@@ -3,7 +3,7 @@ import { ProductSpec } from "@prisma/client";
 import { z } from "zod";
 
 import { db } from "@/shared/lib/db";
-import { requireAdmin } from "@/shared/lib/requireAuth";
+import { isAdmin } from "@/shared/lib/requireAuth";
 import {
   TAddProductFormValues,
   TCartListItemDB,
@@ -36,8 +36,8 @@ const convertStringToFloat = (str: string) => {
 };
 
 export const addProduct = async (data: TAddProductFormValues) => {
-  const authError = await requireAdmin();
-  if (authError) return authError;
+  const admin = await isAdmin();
+  if (!admin) return { error: "Unauthorized" };
 
   if (!ValidateAddProduct.safeParse(data).success) return { error: "Invalid Data!" };
 
@@ -168,8 +168,8 @@ export const getCartProducts = async (productIDs: string[]) => {
 };
 
 export const deleteProduct = async (productID: string) => {
-  const authError = await requireAdmin();
-  if (authError) return authError;
+  const admin = await isAdmin();
+  if (!admin) return { error: "Unauthorized" };
 
   if (!productID || productID === "") return { error: "Invalid Data!" };
   try {

@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { TRAFFIC_LIST_PAGE_SIZE } from "@/shared/constants/admin/trafficView";
 import { db } from "@/shared/lib/db";
-import { requireAdmin } from "@/shared/lib/requireAuth";
+import { isAdmin } from "@/shared/lib/requireAuth";
 import { TAddPageVisit } from "@/shared/types/common";
 
 const ValidatePageVisit = z.object({
@@ -49,8 +49,8 @@ export const addVisit = async (data: TAddPageVisit) => {
 };
 
 export const getTrafficReport = async (skip: number = 0) => {
-  const authError = await requireAdmin();
-  if (authError) return authError;
+  const admin = await isAdmin();
+  if (!admin) return { error: "Unauthorized" };
 
   try {
     const [list, totalCount] = await Promise.all([
@@ -83,8 +83,8 @@ export const getTrafficReport = async (skip: number = 0) => {
 };
 
 export const deleteTraffic = async (id: string) => {
-  const authError = await requireAdmin();
-  if (authError) return authError;
+  const admin = await isAdmin();
+  if (!admin) return { error: "Unauthorized" };
 
   if (!id || id === "") return { error: "Invalid Data!" };
 
