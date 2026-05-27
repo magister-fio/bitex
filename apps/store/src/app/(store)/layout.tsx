@@ -1,3 +1,4 @@
+import { Analytics } from "@/domains/store/shared/components/Analytics";
 import StoreNavBar from "@/domains/store/shared/components/navbar";
 import Warning from "@/domains/store/shared/components/warning";
 import ShoppingCartProvider from "@/store/provider";
@@ -12,6 +13,7 @@ const StoreLayout = ({ children }: { children: React.ReactNode }) => {
         {children}
         <StoreFooter />
         <Warning />
+        <Analytics />
       </ShoppingCartProvider>
     </main>
   );
