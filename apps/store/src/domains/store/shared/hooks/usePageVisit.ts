@@ -6,8 +6,9 @@ import { useEffect } from "react";
 import { addVisit } from "@/actions/pageVisit/pageVisitServices";
 import { TAddPageVisit } from "@/shared/types/common";
 
-const AddVisit = () => {
+export const usePageVisit = () => {
   const pathName = usePathname();
+
   useEffect(() => {
     const addingVisit = async () => {
       const deviceResolution = window.screen.width.toString() + " x " + window.screen.height.toString();
@@ -29,9 +30,7 @@ const AddVisit = () => {
       }
       await addVisit(data);
     };
+
     addingVisit();
   }, [pathName]);
-  return <></>;
 };
-
-export default AddVisit;

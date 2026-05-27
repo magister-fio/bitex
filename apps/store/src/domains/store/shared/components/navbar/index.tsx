@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 
 import { cn } from "@/shared/utils/styling";
 
-import AddVisit from "../addVisit";
-
 import { NAVBAR_ITEMS } from "./constants";
 import NavBarCategory from "./navCategory";
 import NavBarFavorite from "./navFavorite";
@@ -105,7 +103,6 @@ const StoreNavBar = () => {
           </ul>
         </div>
       </section>
-      <AddVisit />
     </nav>
   );
 };
