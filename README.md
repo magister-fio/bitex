@@ -24,7 +24,7 @@ This repository is now structured as a **Turborepo monorepo** managed with `pnpm
 >
 > The original **single-package, MongoDB** codebase has been **preserved unchanged** on a dedicated branch:
 >
-> ### 👉 Branch: [`legacy/mongo-monolith`](https://github.com/HosseinNamvar/bitex/tree/legacy/mongo-monolith)
+> ### 👉 Branch: [`legacy/mongo-monolith`](https://github.com/magister-fio/bitex/tree/legacy/mongo-monolith)
 >
 > Check it out locally with:
 >
@@ -105,7 +105,7 @@ This repository is now structured as a **Turborepo monorepo** managed with `pnpm
 ### 💾 Cloning the repository
 
 ```shell
-git clone https://github.com/HosseinNamvar/bitex.git
+git clone https://github.com/magister-fio/bitex.git
 ```
 
 ### 📥 Install packages
