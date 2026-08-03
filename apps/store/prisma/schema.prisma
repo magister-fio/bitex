@@ -1,0 +1,166 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id       String  @id @default(cuid())
+  parentID String?
+
+  name               String
+  url                String
+  iconUrl            String?
+  iconSize           Int[]
+  Category_Option    Category_OptionSet[]
+  Category_SpecGroup Category_SpecGroup[]
+  products           Product[]
+
+  @@index([parentID])
+}
+
+model Category_OptionSet {
+  id String @id @default(cuid())
+
+  option     OptionSet @relation(fields: [optionID], references: [id], onDelete: Cascade)
+  optionID   String
+  category   Category  @relation(fields: [categoryID], references: [id])
+  categoryID String
+
+  @@unique([optionID, categoryID])
+  @@index([categoryID])
+}
+
+model OptionSet {
+  id              String               @id @default(cuid())
+  name            String
+  type            OptionSetType
+  options         OptionValue[]
+  Category_Option Category_OptionSet[]
+}
+
+model OptionValue {
+  id          String    @id @default(cuid())
+  name        String
+  value       String
+  optionSet   OptionSet @relation(fields: [optionSetID], references: [id], onDelete: Cascade)
+  optionSetID String
+
+  @@index([optionSetID])
+}
+
+model Category_SpecGroup {
+  id String @id @default(cuid())
+
+  specGroup   SpecGroup @relation(fields: [specGroupID], references: [id], onDelete: Cascade)
+  specGroupID String
+  category    Category  @relation(fields: [categoryID], references: [id])
+  categoryID  String
+
+  @@unique([specGroupID, categoryID])
+  @@index([categoryID])
+}
+
+model SpecGroup {
+  id                 String               @id @default(cuid())
+  title              String
+  specs              String[]
+  Category_SpecGroup Category_SpecGroup[]
+}
+
+enum OptionSetType {
+  TEXT
+  COLOR
+}
+
+model Product {
+  id              String        @id @default(cuid())
+  name            String
+  isAvailable     Boolean       @default(true)
+  desc            String?
+  specialFeatures String[]
+  images          String[]
+  category        Category      @relation(fields: [categoryID], references: [id])
+  categoryID      String
+  optionSets      String[]
+  price           Float
+  salePrice       Float?
+  specs           ProductSpec[]
+  brand           Brand         @relation(fields: [brandID], references: [id])
+  brandID         String
+  PageVisit       PageVisit[]
+
+  @@index([categoryID])
+  @@index([brandID])
+}
+
+model ProductSpec {
+  id          String   @id @default(cuid())
+  specGroupID String
+  specValues  String[]
+  product     Product  @relation(fields: [productID], references: [id], onDelete: Cascade)
+  productID   String
+
+  @@index([productID])
+}
+
+model Brand {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  products Product[]
+}
+
+model PageVisit {
+  id               String    @id @default(cuid())
+  time             DateTime? @default(now())
+  pageType         PageType
+  pagePath         String?
+  deviceResolution String?
+  productID        String?
+  product          Product?  @relation(fields: [productID], references: [id])
+
+  @@index([productID])
+}
+
+enum PageType {
+  MAIN
+  LIST
+  PRODUCT
+}
+
+// ---------------------- USER MANAGEMENT SECTION ----------------------
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model User {
+  id             String    @id @default(cuid())
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  hashedPassword String?
+  image          String?
+  accounts       Account[]
+}
